@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
       enum: roles,
       default: "candidate",
     },
+      bookmarkedJobs: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company',
+  }],
     createdAt: {
       type: Date,
       default: Date.now,

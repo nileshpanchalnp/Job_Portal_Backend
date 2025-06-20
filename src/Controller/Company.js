@@ -106,20 +106,24 @@ const updateCompany = async (req, res) => {
   }
 };
 
-// DELETE
 const deleteCompany = async (req, res) => {
   try {
-    const company = await Company.findById(req.params.id);
-    if (!company) {
-      return res.status(404).json({ error: 'Company not found' });
-    }
-console.log("user id check",req.user._id)
-    // Check if the user is the owner or admin
-    if (company.companyId.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-  return res.status(403).json({ error: 'Not authorized to delete this job post' });
-}
+    const id = req.params.id;
 
-    await Company.findByIdAndDelete(req.params.id);
+    if (!id) {
+      return res.status(400).json({ error: "Company ID is required" });
+    }
+
+    const company = await Company.findById(id);
+    if (!company) {
+      return res.status(404).json({ error: "Company not found" });
+    }
+
+    if (company.companyId.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Not authorized to delete this job post' });
+    }
+
+    await Company.findByIdAndDelete(id);
     res.status(200).json({ message: 'Company job post deleted successfully' });
 
   } catch (error) {
@@ -127,7 +131,6 @@ console.log("user id check",req.user._id)
     res.status(500).json({ error: 'Failed to delete company job post' });
   }
 };
-
 
 module.exports = {
   createEvent,
