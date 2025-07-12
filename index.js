@@ -13,7 +13,12 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173', 'https://job-portal-five-lilac.vercel.app/'];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 app.use(express.json());
 
 // ✅ Static file serving for resumes
