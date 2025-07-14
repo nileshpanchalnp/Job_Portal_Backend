@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:5173', 'https://job-portal-five-lilac.vercel.app/'];
+const allowedOrigins = ['http://localhost:5173', 'https://job-portal-five-lilac.vercel.app'];
 
 app.use(cors({
   origin: allowedOrigins,
